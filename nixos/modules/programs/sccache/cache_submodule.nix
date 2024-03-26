@@ -12,8 +12,8 @@ lib.types.attrsOf (lib.types.submodule {
           };
           region = lib.mkOption {
             type = lib.types.str;
-            description = lib.mdDoc "sccache s3 region, required if using AWS s3";
-            default = null;
+            description = lib.mdDoc "sccache s3 region, required if using AWS s3, defaults to us-east-1";
+            default = "us-east-1";
           };
           s3_use_ssl = lib.mkOption {
             type = lib.types.bool;

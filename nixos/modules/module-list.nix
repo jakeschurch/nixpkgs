@@ -157,6 +157,7 @@
   ./programs/calls.nix
   ./programs/captive-browser.nix
   ./programs/ccache.nix
+  ./programs/sccache
   ./programs/cdemu.nix
   ./programs/cfs-zen-tweaks.nix
   ./programs/chromium.nix

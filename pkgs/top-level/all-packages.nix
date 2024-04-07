@@ -40979,6 +40979,26 @@ with pkgs;
 
   sccache = callPackage ../development/tools/misc/sccache { };
 
+  sccacheWrapper = makeOverridable ({ extraConfig, cc }:
+    cc.override {
+      cc = sccache.links {
+        inherit extraConfig;
+        unwrappedCC = cc.cc;
+      };
+    }) {
+      extraConfig = "";
+      inherit (stdenv) cc;
+    };
+
+  sccacheStdenv = lowPrio (makeOverridable ({ stdenv, ... } @ extraArgs:
+    overrideCC stdenv (buildPackages.sccacheWrapper.override ({
+      inherit (stdenv) cc;
+    } // lib.optionalAttrs (builtins.hasAttr "extraConfig" extraArgs) {
+      inherit (extraArgs) extraConfig;
+    }))) {
+      inherit stdenv;
+    });
+
   scip = callPackage ../development/tools/misc/scip { };
 
   scriptisto = callPackage ../development/tools/misc/scriptisto { };
